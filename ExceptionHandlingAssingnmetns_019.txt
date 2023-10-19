@@ -1,0 +1,260 @@
+Q1:
+
+package test;
+class MyException extends Exception
+{
+	//private String message;
+	String mess;
+	public MyException(String mess)
+	{
+		super(mess);
+		this.mess=mess;
+	}
+	/*public String toString()
+	{
+		
+		return mess;
+	}*/
+	
+}
+
+
+package test;
+
+public class Calculator
+{
+	
+	
+	public int DoubleInt(int num) throws MyException
+	{
+		
+		if(num==0)
+		{
+			throw new MyException("ZeroNotAllowed");
+		}
+		else if(num<0)
+		{
+			throw new MyException("NegativeNotAllowed");
+		}
+		else
+		{
+			return num+num;
+			
+		}
+		
+	}
+	
+
+	
+}
+
+package test;
+
+import java.util.Scanner;
+
+public class MyCalcApp 
+{
+	
+
+	public static void main(String[] args) 
+	{
+		Scanner sc= new Scanner(System.in);
+		int num1;
+		
+		System.out.println("Enter a number");
+		int res;
+		num1= sc.nextInt();
+		Calculator c= new Calculator();
+		try
+		{
+			res = c.DoubleInt(num1);
+			System.out.println(res);
+
+		}
+		catch (MyException m)
+		{
+			System.out.println(m);
+		}
+
+	}
+
+}
+
+Q2:
+
+DeveloperSide
+
+
+/**
+ * 
+ */
+package devpack;
+
+/**
+ * @author Lenovo
+ *Exception NumberNotDivisibleBySeven gives an exception when a number passed from the user is not accesible by the user.
+ *
+ *
+ */
+public class NumberNotDivisibleBySeven extends Exception
+{
+	private String message;
+	public NumberNotDivisibleBySeven(String mess)
+	{
+		super(mess);
+		this.message=mess;
+	}
+
+	
+	/**
+	 *here method toString overide as we can directly call the reference of excpetion object when we catch exception.
+	 */
+	@Override
+	public String toString() 
+	{
+		return message;
+	}
+}
+
+ClientSide:
+
+package clientPro;
+
+import devpack.NumberNotDivisibleBySeven;
+
+public class MyMath 
+{
+	public void disp(int num) throws NumberNotDivisibleBySeven
+	{
+		if(num%7!=0)
+		{
+			throw new NumberNotDivisibleBySeven("Invalid Number");
+			
+		}
+		else 
+		{
+			System.out.println(num);
+		}
+		
+	}
+
+}
+
+
+
+package clientPro;
+import java.util.*;
+import devpack.NumberNotDivisibleBySeven;
+
+public class Demo {
+
+	public static void main(String[] args) 
+	{
+		// TODO Auto-generated method stub
+		Scanner sc= new Scanner (System.in);
+		System.out.println("Enter a number");
+		int num= sc.nextInt();
+		
+		MyMath m= new MyMath();
+		try
+		{
+			m.disp(num);
+
+		}
+		catch (NumberNotDivisibleBySeven e)
+		{
+			System.out.println(e);
+		}
+
+	}
+
+}
+
+Q3: 
+
+client side
+package clientpack;
+import java.util.*;
+import devpack.MyException;
+
+public class Demo 
+{
+	Scanner sc= new Scanner(System.in);
+	
+	public void show1()
+	{
+		try 
+		{
+			show2();
+		}
+		catch( MyException e)
+		{
+			System.out.println(e);
+		}
+		
+	}
+	public void show2() throws MyException
+	{
+		show3();
+	}
+	public void show3() throws MyException
+	{
+		Scanner sc= new Scanner(System.in);
+		System.out.println("Enter a number");
+		int num= sc.nextInt();
+		if(num>10)
+		{
+			throw new MyException("Number is greater than 10.");
+		}
+		else
+		{
+			System.out.println(num);
+		}
+		
+		
+	}
+	public static void main(String args[])
+	{
+		
+		Demo d= new Demo();
+		d.show1();
+		
+	}
+}
+
+
+CllientSide:
+/**
+ * 
+ */
+package devpack;
+
+/**
+ * @author Lenovo
+ *
+ */
+public class MyException extends Exception
+{
+	/**
+	 *  private string type variable 
+	 */
+	private String message;
+	
+	
+	/**
+	 * @param mess us constructed with will call parameter constructor of super class
+	 */
+	public MyException(String mess)
+	{
+		super(mess);
+		this.message= mess;
+	}
+	
+	public String toString()
+	{
+		return message;
+	}
+
+}
+
+
